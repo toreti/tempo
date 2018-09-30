@@ -67,6 +67,42 @@ class Data
     }
 
     /**
+     * @param Data $data
+     * @return Diferenca
+     */
+    public function diferenca(Data $data)
+    {
+        return new Diferenca($this->dateTime()->diff($data->dateTime()));
+    }
+
+    /**
+     * @param Data $data
+     * @return int
+     */
+    public function diferencaEmDias(Data $data)
+    {
+        return $this->diferenca($data)->emDias();
+    }
+
+    /**
+     * @param Data $desdeAData
+     * @return int
+     */
+    public function diasPassados(Data $desdeAData)
+    {
+        return $this->diferenca($desdeAData)->diasPassados();
+    }
+
+    /**
+     * @param Data $ateAData
+     * @return int
+     */
+    public function diasRestantes(Data $ateAData)
+    {
+        return $this->diferenca($ateAData)->diasRestantes();
+    }
+
+    /**
      * @return bool
      * @throws Exception
      */
