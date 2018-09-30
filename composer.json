@@ -1,6 +1,6 @@
 {
   "name": "toreti/tempo",
-  "description": "Biblioteca para ajudar no cálculo de datas",
+  "description": "Extensão da classe DateTime para facilitar operações com data",
   "type": "library",
   "authors": [
     {
@@ -8,7 +8,6 @@
       "email": "toreti@gmail.com"
     }
   ],
-  "version": "1.0.0",
   "require": {
     "php": ">=5.4"
   },
