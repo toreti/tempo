@@ -5,7 +5,7 @@
 
 Extensão da classe DateTime para facilitar operações com data.
 
-Exemplo de uso:
+Exemplo de uso para verificar se a data é dia útil, feriado ou fim de semana:
 
 ```php
 use Toreti\Tempo\Data;
