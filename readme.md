@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/toreti/tempo.svg?branch=master)](https://travis-ci.org/toreti/tempo)
+[![codecov](https://codecov.io/gh/toreti/tempo/branch/master/graph/badge.svg)](https://codecov.io/gh/toreti/tempo)
+
 # Tempo
 
 Extensão da classe DateTime para facilitar operações com data.
