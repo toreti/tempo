@@ -21,24 +21,9 @@ class Feriados
      */
     private $feriadosMunicipais;
 
-    /**
-     * @var Feriado
-     */
-    private $pascoa;
-
     private function __construct()
     {
-        $this->feriadosNacionais = [
-            '01/01' => 'Confraternização Universal',
-            '21/04' => 'Tiradentes',
-            '01/05' => 'Dia do Trabalhador',
-            '07/09' => 'Dia da Pátria',
-            '12/10' => 'Nossa Senhora Aparecida',
-            '02/11' => 'Finados',
-            '15/11' => 'Proclamação da República',
-            '25/12' => 'Natal',
-        ];
-        $this->feriadosMoveis = [];
+        $this->feriadosNacionais();
         $this->feriadosMunicipais = [];
     }
 
@@ -85,16 +70,13 @@ class Feriados
      */
     private function feriados($anoComQuatroDigitos)
     {
-        $this->pascoa = $this->pascoa($anoComQuatroDigitos);
-        $this->feriadosMoveis = [
-            $this->pascoa->data()->dateTime()->format('d/m') => $this->pascoa->nome(),
-        ];
+        $this->feriadosMoveis($anoComQuatroDigitos);
         return array_merge($this->feriadosNacionais, $this->feriadosMoveis, $this->feriadosMunicipais);
     }
 
     /**
      * @param int $anoComQuatroDigitos
-     * @return Feriado
+     * @return Data
      * @throws Exception
      */
     public function pascoa($anoComQuatroDigitos)
@@ -103,7 +85,36 @@ class Feriados
         if (!$dataValida) {
             throw new Exception('O ano informado é inválido.');
         }
-        $data = Data::criar(date(Data::DATA_FORMATO_BR, easter_date($anoComQuatroDigitos)));
-        return new Feriado($data, 'Páscoa');
+        return Data::criar(date(Data::DATA_FORMATO_BR, easter_date($anoComQuatroDigitos)));
+    }
+
+    private function feriadosNacionais()
+    {
+        $this->feriadosNacionais = [
+            '01/01' => 'Confraternização Universal',
+            '21/04' => 'Tiradentes',
+            '01/05' => 'Dia do Trabalhador',
+            '07/09' => 'Dia da Pátria',
+            '12/10' => 'Nossa Senhora Aparecida',
+            '02/11' => 'Finados',
+            '15/11' => 'Proclamação da República',
+            '25/12' => 'Natal',
+        ];
+    }
+
+    /**
+     * @param int $anoComQuatroDigitos
+     * @throws Exception
+     */
+    private function feriadosMoveis($anoComQuatroDigitos)
+    {
+        $pascoa = $this->pascoa($anoComQuatroDigitos);
+        $sextaFeiraSanta = $pascoa->subtrairDias(2);
+        $corpusChristi = $pascoa->somarDias(60);
+        $this->feriadosMoveis = [
+            $sextaFeiraSanta->formato('d/m') => 'Sexta Feira Santa',
+            $pascoa->formato('d/m') => 'Páscoa',
+            $corpusChristi->formato('d/m') => 'Corpus Christi',
+        ];
     }
 }

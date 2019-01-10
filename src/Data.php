@@ -43,6 +43,7 @@ class Data
         if (!$dateTime) {
             throw new Exception('Data inválida.');
         }
+        $dateTime->setTime(0, 0, 0);
         return new self($dateTime);
     }
 
